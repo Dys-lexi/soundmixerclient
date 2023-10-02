@@ -13,7 +13,7 @@ USERNAME = ""
 PASSWORD = ""
 
 #case specific application names btw (exe name but without .exe)
-keys = ["page up","page down","home","end","insert","delete"]
+keys = ["page up","page down","0","9","insert","delete"]
 keylinks = ["games","browsers","chats"]
 hotkeys = {"browsers":["waterfox","firefox","chrome"],"games":["Terraria","dotnet","r5apex","FSD-Win64-Shipping","Titanfall2","Hl2"],"chats":["Discord"]}
 
@@ -89,15 +89,17 @@ async def waitforkey(keys):
         b= await asyncio.to_thread(keyboard.read_key)
     return b
 async def macrokeys():
+    mutliplier = 1
     while True:
         key = await asyncio.create_task(waitforkey(keys))
         target = False
         increment = 0
-        mutliplier = 1
         startedat = time.time()
         try:
-            if startedat - lasttime < 0.3:
-                mutliplier+=2
+            if startedat - lasttime < 0.21:
+                mutliplier+=1
+            else:
+                mutliplier=1
         except:pass
         for i in range(len(keys)):
             if keys[i] == key:
@@ -106,7 +108,7 @@ async def macrokeys():
 
         await sio.emit("/api/incrementmixer",{"token":token,"target":target,"increment":increment})
         lasttime = startedat
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(0.15)
         
 
 def set_mixer_level(session, volume):
