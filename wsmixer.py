@@ -7,8 +7,8 @@ import asyncio
 import socketio
 import random
 import keyboard
-USERNAME = "pff"
-PASSWORD = "pffed"
+USERNAME = ""
+PASSWORD = ""
 
 # case specific application names btw (exe name but without .exe)
 keys = ["page up", "page down", "home", "end", "insert", "delete"]
